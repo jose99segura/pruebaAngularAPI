@@ -10,7 +10,7 @@ import { ApiService } from 'src/app/services/api.service';
 export class DashboardComponent implements OnInit {
 
   //Atributos
-  private usuarios: Datos[] = [];
+  usuarios: Datos[] = [];
 
   ngOnInit(){
     this.obtenerUsuarios();
