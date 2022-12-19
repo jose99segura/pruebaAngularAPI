@@ -19,3 +19,7 @@ export interface Support {
   url:  string;
   text: string;
 }
+
+export interface LoginInterface {
+  token: string;
+}
