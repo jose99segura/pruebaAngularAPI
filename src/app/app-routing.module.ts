@@ -6,18 +6,16 @@ import { DashboardComponent } from './protected/dashboard/dashboard.component';
 const routes: Routes = [
 
   {
-    path: '',
-    component: DashboardComponent,
-    pathMatch: 'full'
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then( m => m.AuthModule )
   },
   {
-    path: 'login',
-    component: LoginComponent,
-    pathMatch: 'full'
+    path: 'dashboard',
+    loadChildren: () => import('./protected/protected.module').then( m => m.ProtectedModule )
   },
   {
     path: '**',
-    redirectTo: ''
+    redirectTo: 'auth'
   }
 
 ];
