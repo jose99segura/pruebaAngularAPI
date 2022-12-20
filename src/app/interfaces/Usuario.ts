@@ -22,4 +22,7 @@ export interface Support {
 
 export interface LoginInterface {
   token: string;
+  id: number;
+  error: string;
+  ok: boolean;
 }

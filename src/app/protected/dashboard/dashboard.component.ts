@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Datos } from 'src/app/interfaces/Usuario';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -16,7 +17,8 @@ export class DashboardComponent implements OnInit {
     this.obtenerUsuarios();
   }
 
-  constructor( private apiService: ApiService ){ }
+  constructor( private apiService: ApiService,
+                private router: Router ){ }
 
   obtenerUsuarios(){
 
@@ -30,6 +32,11 @@ export class DashboardComponent implements OnInit {
         this.usuarios = [];
       });
 
+  }
+
+  logout(){
+    localStorage.clear();
+    this.router.navigateByUrl('/auth');
   }
 
 }

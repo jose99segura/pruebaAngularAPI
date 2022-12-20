@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable, of, tap } from 'rxjs';
 
 import { LoginInterface, Usuario } from '../interfaces/Usuario';
 
@@ -10,7 +10,6 @@ import { LoginInterface, Usuario } from '../interfaces/Usuario';
 export class ApiService {
 
   private apiUrl: string = 'https://reqres.in/api';
-  private _usuario!: Usuario;
 
   constructor( private http: HttpClient ) { }
 
@@ -28,8 +27,26 @@ export class ApiService {
     return this.http.post<LoginInterface>(url, body)
       .pipe(
         tap( resp => {
-          localStorage.setItem('token', resp.token)
-        })
+          if (resp) {
+            localStorage.setItem('token', resp.token)
+          }
+        }),
+        catchError( err => of(err.error.msg ) )
+      )
+  }
+
+  register( email: string, password: string ) {
+    const url = `${this.apiUrl}/register`;
+    const body = { email, password }
+
+    return this.http.post<LoginInterface>(url, body)
+      .pipe(
+        tap( resp => {
+          if (resp.token) {
+            localStorage.setItem('token', resp.token)
+          }
+        }),
+        catchError( err => of(err.error.msg ) )
       )
   }
 

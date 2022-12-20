@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -16,21 +18,29 @@ export class RegisterComponent {
   });
 
   constructor( private fb: FormBuilder,
-               private router: Router ) { }
+               private router: Router,
+               private apiService: ApiService ) { }
 
 
   registro() {
-    // const { name, email, password } = this.miFormulario.value;
+    const {email, password} = this.miFormulario.value;
 
-    // this.authService.registro( name, email, password )
-    //   .subscribe( ok => {
+    this.apiService.login( email, password )
+      .subscribe( resp => {
+        console.log(resp);
 
-    //     if ( ok === true ) {
-    //       this.router.navigateByUrl('/dashboard');
-    //     } else {
-    //       Swal.fire('Error', ok, 'error');
-    //     }
-    //   });
+        // Si la respuesta ha devuelto un token, redireccionar a dashboard
+        if (resp) {
+          this.router.navigateByUrl('/dashboard');
+        }else{
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'El registro es incorrecto',
+          })
+        }
+      });
 
   }
 
