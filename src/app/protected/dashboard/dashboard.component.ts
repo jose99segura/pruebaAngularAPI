@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
     // Desestructuracion de 'usuarios'
       .subscribe( ({data}) => {
         this.usuarios = data;
-        console.log(this.usuarios);
+        // console.log(this.usuarios);
 
       }, (err) => {
         this.usuarios = [];

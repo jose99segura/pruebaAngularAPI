@@ -27,7 +27,7 @@ export class RegisterComponent {
 
     this.apiService.login( email, password )
       .subscribe( resp => {
-        console.log(resp);
+        // console.log(resp);
 
         // Si la respuesta ha devuelto un token, redireccionar a dashboard
         if (resp) {

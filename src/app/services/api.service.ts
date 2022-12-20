@@ -32,7 +32,7 @@ export class ApiService {
   eliminar( id: any ) {
     const url = `${this.apiUrl}/users/${id}`;
 
-    return this.http.delete<Usuario>(url);
+    return this.http.delete(url);
   }
 
   // LOGIN

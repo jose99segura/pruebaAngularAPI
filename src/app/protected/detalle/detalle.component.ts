@@ -30,7 +30,9 @@ export class DetalleComponent implements OnInit {
         this.user = resp.data;
 
       }, (err) => {
+        console.error("no se puede obtener con id", err);
         this.usuario = [];
+        this.user = null;
       });
   }
 
@@ -40,8 +42,12 @@ export class DetalleComponent implements OnInit {
 
       console.log(resp);
 
-    }, (err) => {
+      if (resp) {
+        this.route.navigateByUrl('/protected/dashboard');
+      }
 
+    }, (err) => {
+      console.error("no se puede borrar", err);
     });
   }
 
