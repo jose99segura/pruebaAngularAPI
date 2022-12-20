@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, of, tap } from 'rxjs';
 
-import { LoginInterface, Usuario } from '../interfaces/Usuario';
+import { Datos, LoginInterface, Usuario } from '../interfaces/Usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,7 @@ export class ApiService {
 
   constructor( private http: HttpClient ) { }
 
+  // OBTENER TODOS LOS USUARIOS
   obtenerUsuarios(): Observable<Usuario> {
     const url = `${this.apiUrl}/users`;
 
@@ -20,6 +21,21 @@ export class ApiService {
     return this.http.get<Usuario>(url);
   }
 
+  // OBTENER UN USUARIO CON ID
+  obtenerUsuarioConId( id: any ): Observable<Usuario> {
+    const url = `${this.apiUrl}/users/${id}`;
+
+    return this.http.get<Usuario>(url);
+  }
+
+  // ELIMINAR
+  eliminar( id: any ) {
+    const url = `${this.apiUrl}/users/${id}`;
+
+    return this.http.delete<Usuario>(url);
+  }
+
+  // LOGIN
   login( email: string, password: string ) {
     const url = `${this.apiUrl}/login`;
     const body = { email, password }
@@ -35,6 +51,7 @@ export class ApiService {
       )
   }
 
+  // REGISTRO
   register( email: string, password: string ) {
     const url = `${this.apiUrl}/register`;
     const body = { email, password }

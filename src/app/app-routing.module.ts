@@ -10,7 +10,7 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then( m => m.AuthModule )
   },
   {
-    path: 'dashboard',
+    path: 'protected',
     loadChildren: () => import('./protected/protected.module').then( m => m.ProtectedModule )
   },
   {

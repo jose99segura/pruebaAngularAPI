@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Datos } from 'src/app/interfaces/Usuario';
+import { Datos, Usuario } from 'src/app/interfaces/Usuario';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -32,6 +32,10 @@ export class DashboardComponent implements OnInit {
         this.usuarios = [];
       });
 
+  }
+
+  detalle(usuario: Datos) {
+    this.router.navigate(['/protected/detalle',usuario.id]);
   }
 
   logout(){

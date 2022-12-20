@@ -31,7 +31,7 @@ export class RegisterComponent {
 
         // Si la respuesta ha devuelto un token, redireccionar a dashboard
         if (resp) {
-          this.router.navigateByUrl('/dashboard');
+          this.router.navigateByUrl('/protected/dashboard');
         }else{
 
           Swal.fire({
