@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, of, tap } from 'rxjs';
 
-import { Datos, LoginInterface, Usuario } from '../interfaces/Usuario';
+import { Datos, LoginInterface, Usuario, Usuario2 } from '../interfaces/Usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -22,10 +22,10 @@ export class ApiService {
   }
 
   // OBTENER UN USUARIO CON ID
-  obtenerUsuarioConId( id: any ): Observable<Usuario> {
+  obtenerUsuarioConId( id: any ): Observable<Usuario2> {
     const url = `${this.apiUrl}/users/${id}`;
 
-    return this.http.get<Usuario>(url);
+    return this.http.get<Usuario2>(url);
   }
 
   // ELIMINAR

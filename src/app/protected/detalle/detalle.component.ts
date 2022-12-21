@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Datos } from 'src/app/interfaces/Usuario';
+import { Datos, Usuario2 } from 'src/app/interfaces/Usuario';
 import { ApiService } from 'src/app/services/api.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detalle',
@@ -9,14 +10,19 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./detalle.component.css']
 })
 export class DetalleComponent implements OnInit {
-  usuario: Datos[] | undefined;
   public id: any;
-
-  user: any;
+  user: Datos = {
+    id: 0,
+    email: '',
+    first_name: '',
+    last_name: '',
+    avatar: ''
+  };
 
   constructor(private router: ActivatedRoute,
               private route: Router,
-              private apiService: ApiService) {}
+              private apiService: ApiService) {
+              }
 
   ngOnInit() {
     this.id = this.router.snapshot.paramMap.get('id');
@@ -26,13 +32,18 @@ export class DetalleComponent implements OnInit {
   obtenerUsuarioConId(id: any) {
     this.apiService.obtenerUsuarioConId(id)
       .subscribe( (resp) => {
-        this.usuario = resp.data;
         this.user = resp.data;
+
 
       }, (err) => {
         console.error("no se puede obtener con id", err);
-        this.usuario = [];
-        this.user = null;
+        this.user = {
+          id: 0,
+          email: '',
+          first_name: '',
+          last_name: '',
+          avatar: ''
+        };
       });
   }
 
@@ -40,11 +51,12 @@ export class DetalleComponent implements OnInit {
     this.apiService.eliminar(this.id)
     .subscribe( (resp) => {
 
-      console.log(resp);
-
-      if (resp) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Eliminado',
+        text: 'El usuario ha sido eliminado correctamente',
+      })
         this.route.navigateByUrl('/protected/dashboard');
-      }
 
     }, (err) => {
       console.error("no se puede borrar", err);
